@@ -1,0 +1,26 @@
+services:
+  # ── Backend (Socket.io server) ─────────────────────────────
+  - type: web
+    name: tamerlane-chess-server
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        # Update this to your frontend URL after first deploy
+        value: https://tamerlane-chess.onrender.com
+  # ── Frontend (React static site) ──────────────────────────
+  - type: web
+    name: tamerlane-chess
+    runtime: static
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_SERVER_URL
+        # Update this to your backend URL after first deploy
+        # e.g. https://tamerlane-chess-server.onrender.com
+        value: ""
